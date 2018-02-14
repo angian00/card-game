@@ -10,12 +10,12 @@ Currently I have a web client + nodejs server architecture.
 - client-side: a modern Desktop browser with resolution >= 1024x768 (an iPad is good too)
 
 Instructions:
-- git clone <...>
+- git clone prj-url
 - from project dir: npm install .
 - node app.js
 - Enjoy!
 
-See (CHANGELOG.md) for history of releases.
+See [CHANGELOG](/CHANGELOG.md) for history of releases.
 
 
 ## Milestones
@@ -47,7 +47,6 @@ AKA grand plan of future releases:
 	- some try at AI?
 
 - v3.0
-Extra features, like
 	- deck editing
 	- tournments, rating, etc.
 	- integration with 3rd parties, ex. support for Kettle protocol
