@@ -1,0 +1,217 @@
+data/hearthstone-cards
+taken from 
+https://www.kaggle.com/jeradrose/hearthstone-cards
+
+which itself is taken from 
+https://hearthstonejson.com/docs/cards.html
+
+
+Filter criteria for supported cards:
+	collectible == true
+	cardClass == "NEUTRAL"
+	set == "CORE" || "EXPERT1"
+	rarity == "FREE" || "COMMON"
+	type == "MINION" || "SPELL" || "ENCHANTMENT" || "WEAPON"
+	<only supported mechanics>
+
+Example, with relevant subset of fields:
+
+{
+	"id": "EX1_116",
+	"attack": 6,
+	"health": 2,
+	"cost": 5,
+
+	"name": "Leeroy Jenkins",
+	"mechanics": [
+		"BATTLECRY",
+		"CHARGE"
+	],
+	"text": "<b>Charge</b>. <b>Battlecry:</b> Summon two 1/1 Whelps for your opponent.",
+	"set": "EXPERT1",
+	"type": "MINION"
+
+	"cardClass": "NEUTRAL",
+
+	/* "collectible": true */
+	/* "rarity": "LEGENDARY" */
+	/* "dbfId": 559 ??? */
+}
+
+# enums (as per https://github.com/HearthSim/python-hearthstone/blob/master/hearthstone/enums.py)
+
+## type:
+	HERO
+	MINION
+	SPELL
+	ENCHANTMENT (buff)
+	WEAPON
+	HERO_POWER
+
+## set
+	CORE (basic
+free cards)
+	EXPERT1 (expert cards)
+	NAXX
+	GVG
+	BRM
+	TGT
+	LOE
+	PROMO
+	REWARD
+
+## race
+Usually only available on minions
+	INVALID
+	BLOODELF
+	DRAENEI
+	DWARF
+	GNOME
+	GOBLIN
+	HUMAN
+	NIGHTELF
+	ORC
+	TAUREN
+	TROLL
+	UNDEAD
+	WORGEN
+	GOBLIN2
+	MURLOC
+	DEMON
+	SCOURGE
+	MECHANICAL
+	ELEMENTAL
+	OGRE
+	BEAST
+	TOTEM
+	NERUBIAN
+	PIRATE
+	DRAGON
+	BLANK
+
+
+## cardClass
+	INVALID
+	DEATHKNIGHT
+	DRUID
+	HUNTER
+	MAGE
+	PALADIN
+	PRIEST
+	ROGUE
+	SHAMAN
+	WARLOCK
+	WARRIOR
+	DREAM
+	NEUTRAL
+
+## rarity
+	INVALID
+	COMMON
+	FREE
+	RARE
+	EPIC
+	LEGENDARY
+
+
+## mechanics GameTags
+	ADJACENT_BUFF
+	AI_MUST_PLAY
+	APPEAR_FUNCTIONALLY_DEAD
+	ADAPT
+	AURA
+	BATTLECRY
+	CANT_ATTACK
+	CANT_BE_TARGETED_BY_ABILITIES
+	CANT_BE_TARGETED_BY_HERO_POWERS
+	CHARGE
+	CHOOSE_ONE
+	COMBO
+	COUNTER
+	DEATHRATTLE
+	DISCOVER
+	DIVINE_SHIELD
+	ENRAGED
+	EVIL_GLOW
+	FORGETFUL
+	FREEZE
+	IMMUNE
+	INSPIRE
+	JADE_GOLEM
+	MORPH
+	POISONOUS
+	QUEST
+	RECEIVES_DOUBLE_SPELLDAMAGE_BONUS
+	RITUAL
+	SECRET
+	SILENCE
+	STEALTH
+	TAG_ONE_TURN_EFFECT
+	TAUNT
+	TOPDECK
+	UNTOUCHABLE
+	WINDFURY
+	ImmuneToSpellpower
+	InvisibleDeathrattle
+
+
+# Mechanics milestones
+## v0.<x>
+	WINDFURY
+	CHARGE
+	CANT_ATTACK
+	DIVINE_SHIELD
+	TAUNT
+	POISONOUS
+
+
+## v0.<x+1>
+	SILENCE
+	FREEZE
+	STEALTH
+	COMBO
+
+
+## v0.<x+2> (custom scripting)
+	BATTLECRY
+	DEATHRATTLE
+	ENRAGED
+	IMMUNE
+	CANT_BE_TARGETED_BY_ABILITIES
+	CANT_BE_TARGETED_BY_HERO_POWERS
+	ADAPT
+	AURA
+	ADJACENT_BUFF
+
+## v0.<x+3> (trigger conditions)
+	QUEST
+	SECRET
+	MORPH
+
+## v0.<x+4> (depends on gui enhancements)
+	DISCOVER
+	CHOOSE_ONE
+	TOPDECK
+
+
+## later
+	INSPIRE (depends on Hero Powers)
+
+## undecided
+	COUNTER
+	RECEIVES_DOUBLE_SPELLDAMAGE_BONUS
+	FORGETFUL
+	ImmuneToSpellpower
+
+## unknown
+	APPEAR_FUNCTIONALLY_DEAD
+	TAG_ONE_TURN_EFFECT
+
+## never
+	RITUAL
+	JADE_GOLEM
+
+## N/A
+	AI_MUST_PLAY
+	UNTOUCHABLE
+	EVIL_GLOW

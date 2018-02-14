@@ -1,0 +1,235 @@
+/** reproducing Bootstrap 4 general settings **/
+body {
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+}
+
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+
+/** ---------------------------------------- **/
+
+.gamecard-container {
+	max-width: 1140px;
+    width: 100%;
+    height: auto;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+
+	display: flex;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+	align-items: center;
+	justify-content: center;
+
+    border-bottom: 1px grey solid;
+    position: relative;
+}
+
+.gamecard-container#opponentBoard {
+    border-bottom: 4px grey double;
+}
+
+.gamecard-container-label {
+	font-family: 'Poppins', sans-serif;
+	font-size: 45px;
+	font-style: italic;
+
+	position: absolute;
+	bottom: 0px;
+	right: 0px;
+	padding: 0px 10px;
+	z-index: -1;
+
+	color: grey;
+	opacity: 0.4;
+}
+
+
+.gamecard {
+	width: 140px;
+	height: 210px;
+	border: 3px solid;
+	border-radius: 10px;
+	position:relative;
+
+ 	border-color: DarkRed;
+ 	background-color: Wheat;
+
+	margin: 10px;
+	padding: 5px;
+}
+
+.gamecard.selected {
+	border-width: 5px;
+}
+
+.gamecard .fa {
+	font-size: 0.8em;
+	padding: 3px;
+}
+
+
+
+img.gamecard-image {
+	width: 124px;
+	height: 100px;
+	margin: 0px auto;
+}
+
+.gamecard-title {
+	font-size: 11pt;
+	font-weight: bold;
+	text-align: center;
+}
+
+.gamecard-features {
+	font-size: 11pt;
+	text-align: center;
+}
+
+.gamecard-stat-attack {
+	font-size: 15pt;
+
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+}
+
+.gamecard-stat-health {
+	font-size: 15pt;
+
+	position: absolute;
+	bottom: 0px;
+	right: 0px;
+}
+
+.gamecard .cost-container {
+	font-size: 17pt;
+	text-align: center;
+
+	width: 1.2em;
+	height: 1.2em;
+	position: absolute;
+	top: -10px;
+	left: -10px;
+
+	border: 3px solid;
+ 	border-color: DarkRed;
+ 	background-color: DarkRed;
+ 	color: White;
+ }
+
+.gamecard-stat-cost {
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%); 
+}
+
+
+
+.player-status {
+	min-width: 150px;
+ 	position: fixed;
+    right: 0px;
+
+	border: 5px solid;
+	border-radius: 5px;
+
+ 	border-color: MidnightBlue;
+ 	background-color: Lavender;
+ 	opacity: 0.7;
+
+	padding: 5px;
+}
+
+.player-status#yourStatus {
+ 	bottom: 0px;
+}
+
+.player-status#opponentStatus {
+ 	top: 0px;
+}
+
+
+.player-name {
+	font-size: 16pt;
+	font-weight: bold;
+	text-align: left;
+}
+
+
+.player-status .fa {
+	font-size: 0.9em;
+	padding: 3px;
+}
+
+.player-stat {
+	font-size: 15pt;
+}
+
+
+#commandContainer {
+	height: 100px;
+ 	position: fixed;
+    left: 0px;
+    bottom: 0px;
+
+    /*
+	border: 5px solid;
+	border-radius: 5px;
+ 	border-color: MidnightBlue;
+	*/
+
+ 	background-color: LightGray;
+ 	padding: 0px;
+
+ 	font-size: 15pt;
+}
+
+#togglePaletteButton {
+	height: 100%;
+	width: 50px;
+	float: left;
+} 
+
+#commandPalette {
+	height: 100%;
+	width: auto;
+	display: flex;
+	float: left;
+}
+
+
+.palette-button {
+	height: 100%;
+	width: 150px;
+	float: left;
+}
+
+
+.injured {
+	color: red;
+}
+
+.healthy {
+	color: darkGreen;
+}
+
+.centering {
+	align: center;
+}
+
+.hidden {
+	display: none !important;
+}
+
+.placeholder {
+	opacity: 0;
+}

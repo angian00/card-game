@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Card Game</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+		<link rel="stylesheet" href="card_game.css">
+		<script src="card_game.js"></script>
+	</head>
+
+	<body>
+		<div class="game-container">
+			<div id="opponentBoard" class="gamecard-container">
+				<div class="gamecard-container-label">OPPONENT BOARD</div>
+
+				<div class="gamecard">
+					<img class="gamecard-image" src="images/sample_card_image.png"></img>
+					<div class="gamecard-title">Captured Jormunger</div>
+					<div class="gamecard-features">Charge, Battlecry</div>
+					<div class="gamecard-stat-attack"><i class="fa fa-gavel"></i> 1</div>
+					<div class="gamecard-stat-health"><i class="fa fa-heart"></i> 1/1</div>
+					<div class="cost-container">
+						<div class="gamecard-stat-cost">7</div>
+					</div>
+				</div>
+				<div class="gamecard">
+					<img class="gamecard-image" src="images/sample_card_image.png"></img>
+					<div class="gamecard-title">Murloc Tinyfin</div>
+					<div class="gamecard-features"></div>
+					<div class="gamecard-stat-attack">1</div>
+					<div class="gamecard-stat-health">1[1]</div>
+					<div class="cost-container">
+						<div class="gamecard-stat-cost">0</div>
+					</div>
+				</div>
+				<div class="gamecard">
+					<img class="gamecard-image" src="images/sample_card_image.png"></img>
+					<div class="gamecard-title">Captured Jormunger</div>
+					<div class="gamecard-features">Charge, Battlecry</div>
+					<div class="gamecard-stat-attack">1</div>
+					<div class="gamecard-stat-health">2 [3]</div>
+					<div class="cost-container">
+						<div class="gamecard-stat-cost">7</div>
+					</div>
+				</div>
+				<div class="gamecard">
+					<img class="gamecard-image" src="images/sample_card_image.png"></img>
+					<div class="gamecard-title">Captured Jormunger</div>
+					<div class="gamecard-features">Charge, Battlecry</div>
+					<div class="gamecard-stat-attack">1</div>
+					<div class="gamecard-stat-health">2[3]</div>
+					<div class="cost-container">
+						<div class="gamecard-stat-cost">7</div>
+					</div>
+				</div>
+				<div class="gamecard">
+					<img class="gamecard-image" src="images/sample_card_image.png"></img>
+					<div class="gamecard-title">Pit Fighter</div>
+					<div class="gamecard-features"></div>
+					<div class="gamecard-stat-attack"><i class="fa fa-gavel"></i>20</div>
+					<div class="gamecard-stat-health"><i class="fa fa-heart"></i>10/12</div>
+					<div class="cost-container">
+						<div class="gamecard-stat-cost">5</div>
+					</div>
+				</div>
+				<div class="gamecard">
+					<img class="gamecard-image" src="images/sample_card_image.png"></img>
+					<div class="gamecard-title">Captured Jormunger</div>
+					<div class="gamecard-features">Best layout</div>
+					<div class="gamecard-stat-attack"><i class="fa fa-gavel"></i>20</div>
+					<div class="gamecard-stat-health">10/12<i class="fa fa-heart"></i></div>
+					<div class="cost-container">
+						<div class="gamecard-stat-cost">7</div>
+					</div>
+				</div>
+				<div class="gamecard">
+					<img class="gamecard-image" src="images/sample_card_image.png"></img>
+					<div class="gamecard-title">Captured Jormunger</div>
+					<div class="gamecard-features">Charge, Battlecry</div>
+					<div class="gamecard-stat-attack">1</div>
+					<div class="gamecard-stat-health">1 [1]</div>
+					<div class="cost-container">
+						<div class="gamecard-stat-cost">7</div>
+					</div>
+				</div>
+			</div>
+
+			<div id="yourBoard" class="gamecard-container">
+				<div class="gamecard-container-label">YOUR BOARD</div>
+
+				<div class="gamecard">
+					<img class="gamecard-image" src="images/sample_card_image.png"></img>
+					<div class="gamecard-title">Riga 2</div>
+					<div class="gamecard-features">Charge, Battlecry</div>
+					<div class="gamecard-stat-attack">1</div>
+					<div class="gamecard-stat-health">1 [1]</div>
+					<div class="cost-container">
+						<div class="gamecard-stat-cost">7</div>
+					</div>
+				</div>
+			</div>
+
+			<div id="yourHand" class="gamecard-container">
+				<div class="gamecard-container-label">YOUR HAND</div>
+			</div>
+	
+
+			<div id="yourStatus" class="player-status">
+				<!--img class="player-image" src="images/sample_player_image.png"></img-->
+				<div class="player-name">Player 1</div>
+				<!--div class="player-stat-attack"><i class="fa fa-gavel"></i>20</div-->
+				<div class="player-stat player-stat-ncards"><i class="fa fa-clone"></i><span></span></div>
+				<div class="player-stat player-stat-health"><i class="fa fa-heart"></i><span></span></div>
+				<div class="player-stat player-stat-mana"><i class="fa fa-star"></i><span></span></div>
+			</div>
+
+			<div id="opponentStatus" class="player-status">
+				<!--img class="player-image" src="images/sample_player_image.png"></img-->
+				<div class="player-name">Computer</div>
+				<!--div class="player-stat-attack"><i class="fa fa-gavel"></i>20</div-->
+				<div class="player-stat player-stat-ncards"><i class="fa fa-clone"></i><span></span></div>
+				<div class="player-stat player-stat-health"><i class="fa fa-heart"></i><span></span></div>
+				<div class="player-stat player-stat-mana"><i class="fa fa-star"></i><span></span></div>
+			</div>
+
+			<div id="commandContainer">
+				<button id="togglePaletteButton" type="button"><i class="fa fa-eye"></i></button>
+				<div id="commandPalette" class="hidden">
+					<button id="nextRoundcommandButton" class="palette-button" type="button">Next Round (N)</button>
+					<button id="quitCommandButton" class="palette-button" type="button">Quit Game (Q)</button>
+				</div>
+			</div>
+
+		</div>
+	</body>
+</html>
