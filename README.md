@@ -5,7 +5,7 @@ Some experiments for a Hearthstone-like collectible card game engine.
 Currently I have a web client + nodejs server architecture.
 
 ## Prerequisites
-- nodejs (tested with v9.5.0; uses ES5 syntax)
+- nodejs (tested with v5.6.0 and v9.5.0; uses ES5 syntax)
 - npm
 - client-side: a modern Desktop browser with resolution >= 1024x768 (an iPad is good too)
 
@@ -13,6 +13,7 @@ Instructions:
 - git clone prj-url
 - from project dir: npm install .
 - node app.js
+- point your browser to `http://<your ip addr>:8081/index.html`
 - Enjoy!
 
 See [CHANGELOG](/CHANGELOG.md) for history of releases.
@@ -22,7 +23,7 @@ See [CHANGELOG](/CHANGELOG.md) for history of releases.
 AKA grand plan of future releases:
 - v0.2 
 	- switch to web GUI + node server architecture
-	- can play a vanilla game (just minions, no mechanics) solo, ("hotseat")
+	- can play a vanilla game (plain minions, no abilities) solo ("hotseat")
 
 - v0.3
 	- correct (scraped) Hearthstone card images
@@ -40,6 +41,7 @@ AKA grand plan of future releases:
 		- WebSockets architecture
 		- simple authentication/authorization/encryption
 	- card types other than minions
+	- hero and hero powers
 
 
 - v2.0
@@ -50,3 +52,7 @@ AKA grand plan of future releases:
 	- deck editing
 	- tournments, rating, etc.
 	- integration with 3rd parties, ex. support for Kettle protocol
+
+
+## Acknowledgements
+Hearthstone card data courtesy of https://hearthstonejson.com.

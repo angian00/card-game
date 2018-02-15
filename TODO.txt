@@ -6,55 +6,26 @@
 	- fine gioco
 	- messaggi informativi (message bar)
 
-	- tooltip
-
 	- fix layout per iPad (width=1024px ?)
 
 	- color schemes diversi per i due player
 
+	- tooltip
 	- favicon
 
 
 
 
 ### v0.3
+- tooling per filtraggio/esplorazione cards.json
+- import catalogo carte
 - scraping immagini carte
-	http://www.hearthstonetopdecks.com
-	
-- messaggi di cortesia completi
-- placeholder effetti grafici per attacchi/etc.
-- prima milestones meccaniche?
+
+- prima milestones meccaniche
+- esperimenti effetti grafici per attacchi/etc.
 
 
-### v1.0
-- meccaniche speciali base
-- multiplayer con WebSocket
-	- PoC WebSocket
-		https://hackernoon.com/how-to-build-a-multiplayer-browser-game-4a793818c29b
-	- re-engineering architettura
-
-
-### v2.0
-- meccaniche speciali custom (scripting)
-	- review esempi Hearthstone
-	- implementazione
-- (basic) ai
-
-
-
-- ? importare catalogo Hearthstone
-- costruire carte ad hoc
-
-
-### v3.0
-- client/server:
-	- autenticazione
-	- gioco in rete
-
-### v4.0
-	- deposito e validazione mazzi
-	- tornei e rating
-
++ costruire carte/meccaniche ad hoc
 
 
 
