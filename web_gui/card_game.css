@@ -11,6 +11,10 @@ body {
     box-sizing: border-box;
 }
 
+*:hover {
+	cursor: crosshair;
+}
+
 /** ---------------------------------------- **/
 
 .gamecard-container {

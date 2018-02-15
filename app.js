@@ -15,7 +15,7 @@ app.get('/api/status', function (req, res) {
 	console.log("Got a GET request for /status");
 	//console.log("gameStatus:");
 	//console.log(engine.gameStatus);
-	return res.json(g);
+	return res.json(engine.sanitize(g));
 })
 
 
@@ -23,7 +23,12 @@ app.post('/api/command/:commandStr', function (req, res) {
 	let cmd = req.params.commandStr;
 	let cmdOk = false;
 
-	if (cmd == "nextRound") {
+	if (cmd == "restartGame") {
+		console.log("restartGame command");
+		g.restart();
+		cmdOk = true;
+
+	} else if (cmd == "nextRound") {
 		console.log("nextRound command");
 		g.nextRound();
 		cmdOk = true;
@@ -47,7 +52,7 @@ app.post('/api/command/:commandStr', function (req, res) {
 	if (cmdOk) {
 		//console.log("new gameStatus:");
 		//console.log(engine.gameStatus);
-		return res.json(g);
+		return res.json(engine.sanitize(g));
 		//res.send(req.params);
 	}
 })

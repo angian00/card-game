@@ -2,9 +2,9 @@
 
 var fs = require("fs");
 var csv = require("csv");
+var sleep = require('sleep');
 
 
-//var MAX_HEALTH = 10;
 var MAX_HEALTH = 30;
 var MAX_MANA = 10;
 var MAX_DECK_SIZE = 30;
@@ -14,39 +14,23 @@ var STATUS_FINISHED = "Game finished";
 
 
 var g = new GameStatus();
-loadTemplates("data/card_templates.csv", function(templates) {
-	//console.log(templates);	
-	loadDeck("data/sample_deck.csv", templates, function(deck) {
-		g.players[0].deck = deck;
-		firstRound();
-	});
-
-	randomDeck(templates, function(deck) {
-		g.players[1].deck = deck;
-		firstRound();
-	});
-});
-
-
-function firstRound() {
-	if (g.players[0].deck.length > 0 && g.players[1].deck.length > 0) {
-		for (let i=0; i < START_HAND_SIZE; i++) {
-			g.drawCard(g.players[0]);
-			g.drawCard(g.players[1]);
-		}			
-
-		g.nextRound();
-	}
-}
 
 
 function GameStatus() {
-	this.startTime = Date.now();
-	this.players = [new Player("Player 1"), new Player("Computer")];
-	this.currPlayer = this.players[0];
-	this.otherPlayer = this.players[1];
-	this.winner = null;
-	this.nRound = 0;
+
+	this.restart = function() {
+		this.startTime = Date.now();
+		this.players = [new Player("Player 1"), new Player("Computer")];
+		this.currPlayer = this.players[0];
+		this.otherPlayer = this.players[1];
+		this.winner = null;
+		this.nRound = 0;
+
+		loadTemplatesSync(this);
+		//console.log(this);
+	}
+
+	this.restart();
 
 
 	this.drawCard = function(p) {
@@ -102,7 +86,7 @@ function GameStatus() {
 		
 		//DEBUG AI
 		if (this.currPlayer.name == "Computer") {
-			res = this.playCardRandom();
+			//res = this.playCardRandom();
 			//res = this.attackRandom();
 		}
 
@@ -147,12 +131,17 @@ function GameStatus() {
 		if (attacker.hasAttacked)
 			return null;
 
-		//TODO: consider attacking the otherPlayer
-		if (targetIndex < 0 || targetIndex >= this.otherPlayer.board.length)
+
+		if (targetIndex < -1 || targetIndex >= this.otherPlayer.board.length)
 			return null;
 
 		console.log("attacking: " + attIndex + "-->" + targetIndex);
-		let target = this.otherPlayer.board[targetIndex];
+		let target = null;
+		if (targetIndex == -1) {
+			target = this.otherPlayer;
+		} else {
+			target = this.otherPlayer.board[targetIndex];
+		}
 
 		if ("attack" in target) {
 			var newAttHealth = attacker.health - target.attack;
@@ -216,6 +205,28 @@ function Player(name) {
 }
 
 
+function loadTemplatesSync(gs) {
+	loadTemplates("data/card_templates.csv", function(templates) {
+		console.log("loaded templates");
+		//console.log(templates);	
+		loadDeck("data/sample_deck.csv", templates, function(deck) {
+			console.log("loaded deck");
+			//console.log(deck);
+			gs.players[0].deck = deck;
+			firstRound(gs);
+			//console.log(gs); //ok
+		});
+
+		randomDeck(templates, function(deck) {
+			console.log("randomized deck");
+			//console.log(deck);
+			gs.players[1].deck = deck;
+			firstRound(gs);
+			//console.log(gs); //ok
+		});
+	});
+}
+
 
 function loadTemplates(filename, callback) {
 	let templates = {};
@@ -273,6 +284,19 @@ function randomDeck(templates, callback) {
 }
 
 
+
+function firstRound(g) {
+	if (g.players[0].deck.length > 0 && g.players[1].deck.length > 0) {
+		for (let i=0; i < START_HAND_SIZE; i++) {
+			g.drawCard(g.players[0]);
+			g.drawCard(g.players[1]);
+		}			
+
+		g.nextRound();
+	}
+}
+
+
 function CardTemplate(name, cost, attack, maxHealth) {
 	this.name = name;
 	this.cost = cost;
@@ -308,6 +332,23 @@ function Minion(cardTemplate) {
 }
 
 
+function sanitize(g) {
+	//shortcut for deep copy
+	let gNew = JSON.parse(JSON.stringify(g));
+
+	//remove sensitive data
+	delete gNew.players;
+	gNew.currPlayer.deckSize = gNew.currPlayer.deck.length;
+	delete gNew.currPlayer.deck;
+	gNew.otherPlayer.deckSize = gNew.otherPlayer.deck.length;
+	delete gNew.otherPlayer.deck;
+	gNew.otherPlayer.handSize = gNew.otherPlayer.hand.length;
+	delete gNew.otherPlayer.hand;
+
+	return gNew;
+}
+
+
 function randomChoice(choices) {
   let index = Math.floor(Math.random() * choices.length);
   return choices[index];
@@ -322,3 +363,4 @@ function shuffleArray(arr) {
 }
 
 module.exports.gameStatus = g;
+module.exports.sanitize = sanitize;

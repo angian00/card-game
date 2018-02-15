@@ -2,34 +2,15 @@
 
 ### v0.2
 
-- porting engine verso node.js
-	v setup node
-	v game loop
-	- non trasmettere:
-		- i deck
-		- hand completa otherPlayer
-
 - gui web
-	- wiring javascript:
-		v pop-out toolbar
-		v popolamento carte da json
-		v player status
-		- tooltip
-		- comandi
-			v da tastiera: nextRound
-			- da mouse,e in engine: attacco a player
-		- messaggi informativi
-	- comando restart
 	- fine gioco
-	- alternanza hot-seat
+	- messaggi informativi (message bar)
+
+	- tooltip
 
 	- fix layout per iPad (width=1024px ?)
 
-	- reskin toolbar
 	- color schemes diversi per i due player
-	- layout diversi per board e hand:
-		- nascondere costo per carte su board
-		v nascondere current health per carte su hand
 
 	- favicon
 
