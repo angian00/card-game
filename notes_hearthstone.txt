@@ -49,8 +49,7 @@ Example, with relevant subset of fields:
 	HERO_POWER
 
 ## set
-	CORE (basic
-free cards)
+	CORE (basic free cards)
 	EXPERT1 (expert cards)
 	NAXX
 	GVG
