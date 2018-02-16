@@ -2,7 +2,6 @@
 
 var fs = require("fs");
 var csv = require("csv");
-var sleep = require('sleep');
 
 
 var MAX_HEALTH = 30;
@@ -20,11 +19,12 @@ function GameStatus() {
 
 	this.restart = function() {
 		this.startTime = Date.now();
-		this.players = [new Player("Player 1"), new Player("Computer")];
+		this.players = [new Player("Player 1", 1), new Player("Computer", 2)];
 		this.currPlayer = this.players[0];
 		this.otherPlayer = this.players[1];
 		this.winner = null;
 		this.nRound = 0;
+		this.message = "Welcome!";
 
 		loadTemplatesSync(this);
 		//console.log(this);
@@ -90,25 +90,29 @@ function GameStatus() {
 			//res = this.attackRandom();
 		}
 
+		this.message = "New round";
+
 		return res;
 	}
 
 	this.playCard = function(index) {
 		if (index < 0 || index >= this.currPlayer.hand.length)
-			return null;
+			return;
 
 		let c = this.currPlayer.hand[index];
 
 		if (c.cost > this.currPlayer.mana) {
-			console.log("WARNING: cannot play card [" + c.name
-				+ "], cost " + c.cost + " > mana " + this.currPlayer.mana);
-			return null;
+			this.message = "cannot play card [" + c.name
+				+ "], cost " + c.cost + " > mana " + this.currPlayer.mana;
+
+			return;
 		}
 
 		this.currPlayer.hand.splice(index, 1);
 		this.currPlayer.board.push(new Minion(c));
 		this.currPlayer.mana = this.currPlayer.mana - c.cost;
-		return { "playedCard": c.name };
+
+		this.message = "card [" + c.name + "] played";
 	}
 
 	this.playCardRandom = function() {
@@ -128,14 +132,15 @@ function GameStatus() {
 			return null;
 
 		let attacker = this.currPlayer.board[attIndex];
-		if (attacker.hasAttacked)
+		if (attacker.hasAttacked) {
+			this.message = attacker.name + " cannot attack";
 			return null;
+		}
 
 
 		if (targetIndex < -1 || targetIndex >= this.otherPlayer.board.length)
 			return null;
 
-		console.log("attacking: " + attIndex + "-->" + targetIndex);
 		let target = null;
 		if (targetIndex == -1) {
 			target = this.otherPlayer;
@@ -143,11 +148,16 @@ function GameStatus() {
 			target = this.otherPlayer.board[targetIndex];
 		}
 
+		console.log("attacking: " + attacker.name + "-->" + target.name);
+		this.message = attacker.name + " -- attacks --> " + target.name;
+
 		if ("attack" in target) {
 			var newAttHealth = attacker.health - target.attack;
 			if (newAttHealth <= 0) {
 				console.log("removing attacker " + attacker.name + " from " + this.currPlayer);
 				this.currPlayer.board.splice(attIndex, 1);
+	
+				this.message += ", " + attacker.name + " died";
 			} else {
 				attacker.health = newAttHealth;
 			}
@@ -157,11 +167,12 @@ function GameStatus() {
 		if (newTargetHealth <= 0) {
 			if (target instanceof Player) {
 				this.winner = this.currPlayer;
-				return {"winner": this.winner.name, "reason": "killed enemy"};
 			} else {
 				console.log("removing target " + target + " from " + this.otherPlayer);
 				this.otherPlayer.board.splice(targetIndex, 1);
 			}
+			this.message += ", " + target.name + " died";
+
 		} else {
 			target.health = newTargetHealth;
 		}
@@ -188,8 +199,9 @@ function GameStatus() {
 }
 
 
-function Player(name) {
+function Player(name, index) {
 	this.name = name;
+	this.index = index;
 	this.maxHealth = MAX_HEALTH;
 	this.health = this.maxHealth;
 	this.maxMana = 0;
@@ -208,22 +220,31 @@ function Player(name) {
 function loadTemplatesSync(gs) {
 	loadTemplates("data/card_templates.csv", function(templates) {
 		console.log("loaded templates");
-		//console.log(templates);	
-		loadDeck("data/sample_deck.csv", templates, function(deck) {
-			console.log("loaded deck");
-			//console.log(deck);
-			gs.players[0].deck = deck;
-			firstRound(gs);
-			//console.log(gs); //ok
-		});
 
 		randomDeck(templates, function(deck) {
 			console.log("randomized deck");
-			//console.log(deck);
+			gs.players[0].deck = deck;
+			firstRound(gs);
+		});
+
+		// loadDeck("data/sample_deck.csv", templates, function(deck) {
+		// 	console.log("loaded deck");
+		// 	//console.log(deck);
+		// 	gs.players[0].deck = deck;
+		// 	firstRound(gs);
+		// });
+
+		randomDeck(templates, function(deck) {
+			console.log("randomized deck");
 			gs.players[1].deck = deck;
 			firstRound(gs);
-			//console.log(gs); //ok
 		});
+
+		// loadDeck("data/sample_deck.csv", templates, function(deck) {
+		// 	console.log("loaded deck");
+		// 	gs.players[1].deck = deck;
+		// 	firstRound(gs);
+		// });
 	});
 }
 

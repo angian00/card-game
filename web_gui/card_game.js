@@ -10,7 +10,7 @@ $(document).ready(function() {
     });
 
    	$("#nextRoundCommandButton").click(nextRoundCommand);
-   	$("#restartGameCommandButton").click(restartGameCommand);
+   	$("#restartGameCommandButton").click(confirmRestartGame);
 
    	$(".player-status").click(playerClicked);
 	$(".gamecard-container").click(containerClicked);
@@ -21,30 +21,51 @@ $(document).ready(function() {
    			return false;
 
 		} else if (String.fromCharCode(e.which) == 'r') {
-   			restartGameCommand();
-   			return false;
+   			confirmRestartGame();
+   			return true;
+   			//return false;
 
    		} else {
    			return true;
    		}
 	});
 
-	$.get("api/status", updateStatus);
+	requestStatus();
 });
 
 
+function requestStatus() {
+	$.get("api/status", updateStatus);
+}
+
 function updateStatus(g) {
-	//populateCards("yourHand", sampleCards);
-	populateCards("yourHand", g.currPlayer.hand);
-	populateCards("yourBoard", g.currPlayer.board);
-	populateCards("opponentBoard", g.otherPlayer.board);
+	console.log("updateStatus");
+	console.log(g);
+
+	populateCards("yourHand", g.currPlayer.hand, g.currPlayer.index);
+	populateCards("yourBoard", g.currPlayer.board, g.currPlayer.index);
+	populateCards("opponentBoard", g.otherPlayer.board, g.otherPlayer.index);
 
 	updatePlayerStatus("yourStatus", g.currPlayer);
 	updatePlayerStatus("opponentStatus", g.otherPlayer);
+
+	updateMessage(g.message);
+
+	if (g.winner) {
+		if (confirm("Game over: congratulations, " + g.winner.name 
+			+ "! \nDo you want to play another game?")) {
+			restartGameCommand();
+		}
+	}
+}
+
+function confirmRestartGame() {
+	if (confirm("Do you really want to abort current game?")) 
+		restartGameCommand();
 }
 
 
-function populateCards(containerId, cards) {
+function populateCards(containerId, cards, playerIndex) {
 	var target = $("#" + containerId);
 
 	if (target == null) {
@@ -60,7 +81,7 @@ function populateCards(containerId, cards) {
 		//console.log("Adding card: " + c.name + "to #" + containerId);
 		var isMinion = (c.health != undefined);
 
-		var cardDiv = $("<div></div>").addClass("gamecard");
+		var cardDiv = $("<div></div>").addClass("gamecard").addClass("player" + playerIndex);
 		cardDiv.append("<img class='gamecard-image' src='images/sample_card_image.png'></img>");
 		cardDiv.append("<div class='gamecard-title'>" + c.name + "</div>");
 		if (c.features == undefined)
@@ -72,7 +93,8 @@ function populateCards(containerId, cards) {
 		
 		var healthText = "";
 		if (isMinion) {
-			healthText = c.health + "/" + c.maxHealth;
+			//healthText = c.health + "/" + c.maxHealth;
+			healthText = c.health;
 		} else {
 			healthText = c.maxHealth;
 		}
@@ -115,6 +137,8 @@ function updatePlayerStatus(statusId, newStatus) {
 		return;
 	}
 
+	target.addClass("player" + newStatus.index).removeClass("player" + (3-newStatus.index));
+
 	target.find(".player-name").text(newStatus.name);
 	target.find(".player-stat-ncards span").text(newStatus.deckSize);
 
@@ -129,6 +153,16 @@ function updatePlayerStatus(statusId, newStatus) {
 	target.find(".player-stat-mana span").text(newStatus.mana + "/" + newStatus.maxMana);
 }
 
+
+function updateMessage(str) {
+	if (str == null)
+		str = "";
+
+	$("#infoMessage").stop(true, true)
+		.text(str)
+		.fadeIn(100)
+		.fadeOut(3000);
+}
 
 function cardClicked() {
 	var index = $(this).index();
@@ -185,6 +219,12 @@ function containerClicked() {
 		return false;
 	}
 
+	if (selected.containerId == "yourBoard") {
+		attackCommand(selected.index, -1);
+		clearSelected();
+		return false;
+	}
+
 	//other combinations have no meaning
 	clearSelected();
 	return false;
@@ -196,12 +236,9 @@ function nextRoundCommand() {
 }
 
 function restartGameCommand() {
-	if (!confirm("Do you really want to abort current game?")) 
-		return;
-
-	sendCommand("restartGame");
+	sendCommand("restartGame", null, false);
 	//async problems on engine restart: returned status in not up-to-date
-	setTimeout(function() { $.get("api/status", updateStatus); }, 500);
+	setTimeout(function() { requestStatus(); }, 500);
 }
 
 function playCardCommand(index) {
@@ -213,15 +250,17 @@ function attackCommand(attIndex, targetIndex) {
 }
 
 
-function sendCommand(cmd, reqObj) {
-	console.log("sending command:" + cmd + " " + (reqObj ? JSON.stringify(reqObj) : ""));
+function sendCommand(cmd, reqObj, callUpdateStatus=true) {
+	var reqBody = (reqObj == null ? "" : JSON.stringify(reqObj));
+
+	console.log("sending command:" + cmd + " " + reqBody);
 
 	$.ajax({
 		url: "api/command/" + cmd, 
-		data: JSON.stringify(reqObj), 
+		data: reqBody, 
 		contentType: "application/json",
 		type: "POST",
-		success: updateStatus
+		success: (callUpdateStatus ? updateStatus : null)
 	});
 }
 

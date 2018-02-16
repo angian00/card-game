@@ -16,10 +16,17 @@ body {
 }
 
 /** ---------------------------------------- **/
+/*
+.game-container {
+	width: 1024px;
+	height: 690px;
+	margin: auto;
+	overflow: hidden;
+}
+*/
 
 .gamecard-container {
-	max-width: 1140px;
-    width: 100%;
+    width: 95%;
     height: auto;
     padding-right: 15px;
     padding-left: 15px;
@@ -33,6 +40,8 @@ body {
 	justify-content: center;
 
     border-bottom: 1px grey solid;
+   	margin-bottom: 5px;
+
     position: relative;
 }
 
@@ -46,7 +55,7 @@ body {
 	font-style: italic;
 
 	position: absolute;
-	bottom: 0px;
+	bottom: -10px;
 	right: 0px;
 	padding: 0px 10px;
 	z-index: -1;
@@ -57,7 +66,7 @@ body {
 
 
 .gamecard {
-	width: 140px;
+	width: 130px;
 	height: 210px;
 	border: 3px solid;
 	border-radius: 10px;
@@ -66,8 +75,10 @@ body {
  	border-color: DarkRed;
  	background-color: Wheat;
 
-	margin: 10px;
-	padding: 5px;
+	margin: 5px;
+	padding: 3px;
+
+	/* transform: rotate(30deg) scale(0.7); */
 }
 
 .gamecard.selected {
@@ -82,7 +93,7 @@ body {
 
 
 img.gamecard-image {
-	width: 124px;
+	width: 118px;
 	height: 100px;
 	margin: 0px auto;
 }
@@ -121,14 +132,13 @@ img.gamecard-image {
 	width: 1.2em;
 	height: 1.2em;
 	position: absolute;
-	top: -10px;
-	left: -10px;
+	top: -8px;
+	left: -8px;
 
 	border: 3px solid;
- 	border-color: DarkRed;
- 	background-color: DarkRed;
  	color: White;
  }
+
 
 .gamecard-stat-cost {
 	position: relative;
@@ -146,12 +156,35 @@ img.gamecard-image {
 	border: 5px solid;
 	border-radius: 5px;
 
- 	border-color: MidnightBlue;
- 	background-color: Lavender;
  	opacity: 0.7;
 
 	padding: 5px;
 }
+
+/** player-specific theming **/
+.player1 {
+ 	border-color: MidnightBlue;
+ 	background-color: Lavender;
+}
+
+.gamecard.player1 .cost-container {
+ 	border-color: MidnightBlue;
+ 	background-color: MidnightBlue;
+}
+
+
+.player2 {
+  	border-color: DarkRed;
+ 	background-color: Wheat;
+}
+
+.gamecard.player2 .cost-container {
+ 	border-color: DarkRed;
+ 	background-color: DarkRed;
+}
+/** end player-specific theming **/
+
+
 
 .player-status#yourStatus {
  	bottom: 0px;
@@ -218,6 +251,19 @@ img.gamecard-image {
 }
 
 
+#infoMessage {
+	min-width: 150px;
+    margin: 10px auto;
+    text-align: center;
+
+ 	color: black;
+ 	opacity: 0.7;
+
+	padding: 5px;
+}
+
+
+
 .injured {
 	color: red;
 }
@@ -228,6 +274,12 @@ img.gamecard-image {
 
 .centering {
 	align: center;
+}
+
+.lowered {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
 }
 
 .hidden {

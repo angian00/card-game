@@ -2,19 +2,6 @@
 
 ### v0.2
 
-- gui web
-	- fine gioco
-	- messaggi informativi (message bar)
-
-	- fix layout per iPad (width=1024px ?)
-
-	- color schemes diversi per i due player
-
-	- tooltip
-	- favicon
-
-
-
 
 ### v0.3
 - tooling per filtraggio/esplorazione cards.json
@@ -24,8 +11,15 @@
 - prima milestones meccaniche
 - esperimenti effetti grafici per attacchi/etc.
 
+- occupazione 100% schermo
+- rotate/scale carte in mano
+- tooltip
+
+- mulligan
 
 + costruire carte/meccaniche ad hoc
 
 
 
+## BUGFIXING
+- fix favicon iPad

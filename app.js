@@ -13,8 +13,7 @@ var g = engine.gameStatus;
 
 app.get('/api/status', function (req, res) {
 	console.log("Got a GET request for /status");
-	//console.log("gameStatus:");
-	//console.log(engine.gameStatus);
+	//console.log(g);
 	return res.json(engine.sanitize(g));
 })
 
