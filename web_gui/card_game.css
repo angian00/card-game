@@ -99,14 +99,17 @@ img.gamecard-image {
 }
 
 .gamecard-title {
-	font-size: 11pt;
+	font-size: 10pt;
 	font-weight: bold;
 	text-align: center;
 }
 
-.gamecard-features {
-	font-size: 11pt;
-	text-align: center;
+.gamecard-text {
+	font-size: 7pt;
+	font-style: italic;
+	text-align: justify;
+	padding-left: 3px;
+	padding-right: 3px;
 }
 
 .gamecard-stat-attack {

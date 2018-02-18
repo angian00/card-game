@@ -82,12 +82,12 @@ function populateCards(containerId, cards, playerIndex) {
 		var isMinion = (c.health != undefined);
 
 		var cardDiv = $("<div></div>").addClass("gamecard").addClass("player" + playerIndex);
-		cardDiv.append("<img class='gamecard-image' src='images/sample_card_image.png'></img>");
+		cardDiv.append("<img class='gamecard-image' src='card_images/" + cleanUrl(c.name) + ".png'></img>");
 		cardDiv.append("<div class='gamecard-title'>" + c.name + "</div>");
-		if (c.features == undefined)
-			c.features = "&nbsp;";
+		if (c.text == undefined)
+			c.text = "&nbsp;";
 		
-		cardDiv.append("<div class='gamecard-features'>" + c.features + "</div>");
+		cardDiv.append("<div class='gamecard-text'>" + c.text + "</div>");
 		cardDiv.append("<div class='gamecard-stat-attack'><i class='fa fa-gavel'></i>" + c.attack 
 			+ (c.hasAttacked ? "*" : "") + "</div>");
 		
@@ -270,3 +270,10 @@ function clearSelected() {
 	selected = null;
 }
 
+
+function cleanUrl(str) {
+	//return encodeURIComponent(str.replace(/\ /g, "_"));
+	console.log("Replaced spaces: " + str.replace(/\ /g, "_"));
+	console.log("encodeURI: " + encodeURI(str.replace(/\ /g, "_")));
+	return encodeURI(str.replace(/\ /g, "_")).replace(/'/g ,"%27");
+}

@@ -16,18 +16,16 @@ Instructions:
 - point your browser to `http://<your ip addr>:8081/index.html`
 - Enjoy!
 
-See [CHANGELOG](/CHANGELOG.md) for history of releases.
+See [CHANGELOG](/CHANGELOG.md) for history of past releases.
+
+See here for plan of future releases.
 
 
 ## Milestones
-AKA grand plan of future releases:
-- v0.2 
-	- switch to web GUI + node server architecture
-	- can play a vanilla game (plain minions, no abilities) solo ("hotseat")
 
 - v0.3
-	- correct (scraped) Hearthstone card images
-	- improvements of user experience (notice messages)
+	v correct (scraped) Hearthstone card images
+	v improvements of user experience
 	- still solo game
 	- some basic minion abilities
 

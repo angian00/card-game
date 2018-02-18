@@ -4,17 +4,21 @@ var app = express();
 
 
 app.use(express.static('web_gui'));
+app.use("/card_images", express.static(__dirname + "/card_images"));
 app.use(bodyParser.json());
 
 
-var engine = require('./engine.js');
+Object.assign(global, require("./lib/game-constants"));
+Object.assign(global, require("./lib/game-entities"));
+var utils = require('gc-util');
+var engine = require('gc-engine');
 var g = engine.gameStatus;
 
 
 app.get('/api/status', function (req, res) {
 	console.log("Got a GET request for /status");
 	//console.log(g);
-	return res.json(engine.sanitize(g));
+	return res.json(utils.sanitize(g));
 })
 
 

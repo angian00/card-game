@@ -1,23 +1,46 @@
 
 
-### v0.2
-
-
 ### v0.3
-- tooling per filtraggio/esplorazione cards.json
-- import catalogo carte
-- scraping immagini carte
+- strutturare classi
+	- ripulire le require
 
-- prima milestones meccaniche
-- esperimenti effetti grafici per attacchi/etc.
+- scraping stat carte e immagini
+	- fare download differenziale immagini
+	- rigenerare elenco filtered/download con anche spell
 
-- occupazione 100% schermo
-- rotate/scale carte in mano
-- tooltip
+
+- meccaniche
+	- riorganizzare deck loading con aggregaz properties/listener
+	- scrivere mazzo di prova
+	- loop eventi/listener funzionante
+
+	- riutilizzare listener BATTLECRY
+
+	- gui: visualizzare buff attivi per minion
+	- gui: scelta target per carte che ne richiedono uno
+
+	- esempi di prova:
+		- 'Nightblade', '<b>Battlecry: </b>Deal 3 damage to the enemy hero.'
+		- 'Flesheating Ghoul', 'Whenever a minion dies, gain +1 Attack.'
+
+		- 'Flametongue Totem', 'Adjacent minions have +2\xa0Attack.'
+		- 'Sap', "Return an enemy minion to your opponent's hand."
+
+
+- GUI
+	- occupazione 100% schermo
+	- rotate/scale carte in mano
+	- tooltip
+	- visualizzare razza
+
+? significato $ e # prima dei numeri in card.text
+
 
 - mulligan
+- esperimenti effetti grafici per attacchi/etc.
 
-+ costruire carte/meccaniche ad hoc
+
+++ costruire carte/meccaniche ad hoc
 
 
 
