@@ -11,7 +11,6 @@
 
 - meccaniche
 	- riorganizzare deck loading con aggregaz properties/listener
-	- scrivere mazzo di prova
 	- loop eventi/listener funzionante
 
 	- riutilizzare listener BATTLECRY

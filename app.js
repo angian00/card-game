@@ -8,17 +8,17 @@ app.use("/card_images", express.static(__dirname + "/card_images"));
 app.use(bodyParser.json());
 
 
-Object.assign(global, require("./lib/game-constants"));
-Object.assign(global, require("./lib/game-entities"));
+Object.assign(global, require("game-constants"));
 var utils = require('gc-util');
+Object.assign(global, require("game-entities"));
 var engine = require('gc-engine');
-var g = engine.gameStatus;
+global.g = engine.gameStatus;
 
 
 app.get('/api/status', function (req, res) {
 	console.log("Got a GET request for /status");
 	//console.log(g);
-	return res.json(utils.sanitize(g));
+	return res.json(g.cloneForOutput());
 })
 
 
@@ -55,8 +55,7 @@ app.post('/api/command/:commandStr', function (req, res) {
 	if (cmdOk) {
 		//console.log("new gameStatus:");
 		//console.log(engine.gameStatus);
-		return res.json(engine.sanitize(g));
-		//res.send(req.params);
+		return res.json(g.cloneForOutput());
 	}
 })
 
