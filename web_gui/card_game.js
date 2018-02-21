@@ -79,7 +79,6 @@ function populateCards(containerId, cards, playerIndex) {
 	for (var i in cards) {
 		var c = cards[i];
 		//console.log("Adding card: " + c.name + "to #" + containerId);
-		var isMinion = (c.health != undefined);
 
 		var cardDiv = $("<div></div>").addClass("gamecard").addClass("player" + playerIndex);
 		cardDiv.append("<img class='gamecard-image' src='card_images/" + cleanUrl(c.name) + ".png'></img>");
@@ -88,29 +87,33 @@ function populateCards(containerId, cards, playerIndex) {
 			c.text = "&nbsp;";
 		
 		cardDiv.append("<div class='gamecard-text'>" + c.text + "</div>");
-		cardDiv.append("<div class='gamecard-stat-attack'><i class='fa fa-gavel'></i>" + c.attack 
-			+ (c.hasAttacked ? "*" : "") + "</div>");
 		
-		var healthText = "";
-		if (isMinion) {
-			//healthText = c.health + "/" + c.maxHealth;
-			healthText = c.health;
-		} else {
-			healthText = c.maxHealth;
-		}
 
-		var healthDiv = $("<div class='gamecard-stat-health'>" + healthText +
-			"<i class='fa fa-heart'></i></div>");
-		if (isMinion) {
-			if (c.health < c.maxHealth) {
-				healthDiv.addClass("injured");
+		if (c.type == "MINION") {
+			cardDiv.append("<div class='gamecard-stat-attack'><i class='fa fa-gavel'></i>" + c.attack 
+				+ (c.hasAttacked ? "*" : "") + "</div>");
+			
+			var healthText = "";
+			if (c.zone == "BOARD") {
+				//healthText = c.health + "/" + c.maxHealth;
+				healthText = c.health;
 			} else {
-				healthDiv.addClass("healthy");
+				healthText = c.maxHealth;
 			}
-		}
-		cardDiv.append(healthDiv);
 
-		if (!isMinion) {
+			var healthDiv = $("<div class='gamecard-stat-health'>" + healthText +
+				"<i class='fa fa-heart'></i></div>");
+			if (c.type == "MINION" && c.zone == "BOARD") {
+				if (c.health < c.maxHealth) {
+					healthDiv.addClass("injured");
+				} else {
+					healthDiv.addClass("healthy");
+				}
+			}
+			cardDiv.append(healthDiv);
+		}
+
+		if (c.zone == "HAND") {
 			cardDiv.append("<div class='cost-container'>" + 
 				"<div class='gamecard-stat-cost'>" + c.cost + "</div></div>");
 		}

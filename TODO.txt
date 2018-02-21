@@ -38,11 +38,7 @@ for (c in targets)
 
 
 ### v0.3
-- modificare viste carte per spell
-
 - meccaniche
-	- fare flag carta supportata/no per visualizzarla in grigino
-
 	- meccaniche non-script:
 		- taunt [Senjin Shieldmasta]
 		- frozen [Frost Nova]
