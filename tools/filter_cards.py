@@ -28,8 +28,8 @@ def main():
 		True]
 
 
-	#save_output(filtered)
-	print_output(filtered)
+	save_output(filtered)
+	#print_output(filtered)
 	#print_json(filtered)
 	print("{}/{} cards filtered".format(len(filtered), len(all_cards)))
 
