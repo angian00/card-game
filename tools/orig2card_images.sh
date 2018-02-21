@@ -4,6 +4,12 @@ rootDir=$(dirname "$0")/..
 srcDir=$rootDir/orig_images
 destDir=$rootDir/card_images
 
+
+if [ ! -d "$destDir" ]
+then
+	mkdir $destDir
+fi
+
 rm -f $destDir/*
 
 for f in $srcDir/*.png

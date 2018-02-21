@@ -1,47 +1,61 @@
 #!/usr/bin/env python3
 
 import json
+import os
+
 
 in_filename = "../data/cards.collectible.json"
 out_filename = "../data/cards.filtered.json"
 
 
 def main():
-	with open(in_filename) as f:
+	in_file_path = get_script_path() + "/" + in_filename
+	with open(in_file_path) as f:
 		all_cards = json.load(f)
 
 
-	filtered = [(c["id"], c["name"], c["text"]) for c in all_cards if \
+	filtered = [c for c in all_cards if \
 		c["collectible"] and \
-		(c["set"] == "CORE" or c["set"] == "EXPERT1") and \
+		#c['cardClass'] == 'NEUTRAL' and
+		#(c["set"] == "CORE" or c["set"] == "EXPERT1") and \
+		c["set"] == "CORE" and \
 		(c["rarity"] == "FREE" or c["rarity"] == "COMMON") and \
-		"text" in c and \
+		#"text" in c and \
 		#c["type"] == "MINION" and \
-		#has_basic_mechanics(c) and \
+		(c["type"] == "MINION" or c["type"] == "SPELL") and \
+		#has_only_basic_mechanics(c) and \
+		(not has_advanced_mechanics(c)) and \
 		True]
 
 
-	#print(filtered[0])
-	#print(json.dumps(filtered))
-
+	#save_output(filtered)
 	print_output(filtered)
+	#print_json(filtered)
 	print("{}/{} cards filtered".format(len(filtered), len(all_cards)))
 
 
 
 def print_output(ff):
 	for c in ff:
-		print(c)
+		print("{}|{}|{}|{}|{}".format(c["id"], c["name"], c["type"], \
+			c["mechanics"] if "mechanics" in c else "-", \
+			c["text"] if "text" in c else "-"))
+
+def print_json(ff):
+	for c in ff:
+		print(json.dumps(c))
 
 
 def save_output(ff):
-	with open(out_filename, 'w') as f:
+	out_file_path = get_script_path() + "/" + out_filename
+	with open(out_file_path, 'w') as f:
 		for c in ff:
 			json.dump(c, f)
 			f.write("\n")
+	print("Saved file: {}".format(out_file_path))
 
 
-def has_basic_mechanics(c):
+def has_only_basic_mechanics(c):
 	if "mechanics" not in c:
 		return True
 
@@ -74,6 +88,24 @@ def has_basic_mechanics(c):
 		return False
 	
 	return True
+
+
+def has_advanced_mechanics(c):
+	if "mechanics" not in c:
+		return False
+
+	m = c["mechanics"]
+
+	if "QUEST" in m:
+		return True
+
+	if "ADAPT" in m:
+		return True
+
+	return False
+
+def get_script_path():
+	return os.path.dirname(os.path.realpath(__file__))
 
 
 if __name__ == "__main__":
