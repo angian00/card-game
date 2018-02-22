@@ -8,17 +8,17 @@ app.use("/card_images", express.static(__dirname + "/card_images"));
 app.use(bodyParser.json());
 
 
-Object.assign(global, require("game-constants"));
-var utils = require('gc-util');
-Object.assign(global, require("game-entities"));
-var engine = require('gc-engine');
-global.g = engine.gameStatus;
+Object.assign(global, require("gc-constants"));
+Object.assign(global, require("gc-util"));
+Object.assign(global, require("gc-entities"));
+Object.assign(global, require("gc-events"));
+Object.assign(global, require("gc-engine"));
 
 
 app.get('/api/status', function (req, res) {
 	console.log("Got a GET request for /status");
 	//console.log(g);
-	return res.json(g.cloneForOutput());
+	return res.json(gameStatus.cloneForOutput());
 })
 
 
@@ -28,22 +28,22 @@ app.post('/api/command/:commandStr', function (req, res) {
 
 	if (cmd == "restartGame") {
 		console.log("restartGame command");
-		g.restart();
+		gameStatus.restart();
 		cmdOk = true;
 
 	} else if (cmd == "nextRound") {
 		console.log("nextRound command");
-		g.nextRound();
+		gameStatus.nextRound();
 		cmdOk = true;
 
 	} else if (cmd == "playCard") {
 		console.log("playCard command: " + JSON.stringify(req.body));
-		g.playCard(req.body.cardIndex);
+		gameStatus.playCard(req.body.cardIndex);
 		cmdOk = true;
 
 	} else if (cmd == "attack") {
 		console.log("attack command: " + JSON.stringify(req.body));
-		g.attack(req.body.attIndex, req.body.targetIndex);
+		gameStatus.attack(req.body.attIndex, req.body.targetIndex);
 		cmdOk = true;
 
 	} else {
@@ -55,7 +55,7 @@ app.post('/api/command/:commandStr', function (req, res) {
 	if (cmdOk) {
 		//console.log("new gameStatus:");
 		//console.log(engine.gameStatus);
-		return res.json(g.cloneForOutput());
+		return res.json(gameStatus.cloneForOutput());
 	}
 })
 

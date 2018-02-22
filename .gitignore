@@ -1,3 +1,15 @@
+#image folders
+card_images
+orig_images
+
+#generated cards files
+data/cards.*.json
+!data/cards.collectible.json
+
+data/image_links.txt
+
+
+
 # Logs
 logs
 *.log
@@ -60,4 +72,5 @@ typings/
 
 #Mac internal file
 **/.DS_Store
+
 

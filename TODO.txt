@@ -2,13 +2,13 @@
 
 handlers = 0..n handler
 handler = { trigger, command | [0..n] array of command }
-trigger(eventSelector) = function(event) --> boolean (true if relevant)
+trigger(o "eventSelector") = function(event) --> boolean (true if relevant)
 command = {action, [0..n] array of argument}
 argument = card || cardSelector
 cardSelector = {[0..n] filterSelector , finalSelector }
 filterSelector = function(card) --> boolean (true if relevant)
 finalSelector = function(array of card) --> array of card
-
+	es.: random, all, chosen
 
 trigger convenzionali sono rappresentati da function pointer costanti:
 	battlecry
@@ -37,7 +37,12 @@ for (c in targets)
 	apply(action, c)
 
 
+
+
+
 ### v0.3
+- aggiornare README
+
 - meccaniche
 	- meccaniche non-script:
 		- taunt [Senjin Shieldmasta]
