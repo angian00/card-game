@@ -7,35 +7,39 @@ Currently I have a web client + nodejs server architecture.
 ## Prerequisites
 - nodejs (tested with v5.6.0 and v9.5.0; uses ES5 syntax)
 - npm
+- for running tools scripts: Python3, imagemagick
 - client-side: a modern Desktop browser with resolution >= 1024x768 (an iPad is good too)
 
 Instructions:
-- git clone prj-url
-- from project dir: npm install .
-- node app.js
+- download this GitHub project: `git clone prj-url`
+- from project dir, install node dependencies: `npm install .`
+- install python scripts dependencies: `pip3 install -r requirements.txt`
+- edit `tools/filter_cards.py` to set your subset of cards, and run it
+- download card images by scraping `hearthstone.gamepedia.com`: `tools/scrape_images.py`
+- run image format conversion script: `tools/convert_images.sh`
+
+Finally, to run the thing:
+- Launch server app: `node app.js`
 - point your browser to `http://<your ip addr>:8081/index.html`
 - Enjoy!
 
-See [CHANGELOG](/CHANGELOG.md) for history of past releases.
+See [CHANGELOG](/CHANGELOG.md) for history of releases.
 
-See here for plan of future releases.
+Look down here for plan of future releases.
 
 
 ## Milestones
 
-- v0.3
-	v correct (scraped) Hearthstone card images
-	v improvements of user experience
-	- still solo game
-	- some basic minion abilities
-
-- v0.x
-	- incremental development of abilities
+- v0.4
+	- incremental development of game mechanics
 	- bugfixing
+
+- v0.5
+	- introduction of WebSockets for multiplayer
 
 
 - v1.0
-	- real-time multiplayer
+	- finalization of real-time multiplayer
 		- WebSockets architecture
 		- simple authentication/authorization/encryption
 	- card types other than minions

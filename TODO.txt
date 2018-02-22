@@ -1,48 +1,8 @@
 ## Script brainstorming
 
-handlers = 0..n handler
-handler = { trigger, command | [0..n] array of command }
-trigger(o "eventSelector") = function(event) --> boolean (true if relevant)
-command = {action, [0..n] array of argument}
-argument = card || cardSelector
-cardSelector = {[0..n] filterSelector , finalSelector }
-filterSelector = function(card) --> boolean (true if relevant)
-finalSelector = function(array of card) --> array of card
-	es.: random, all, chosen
-
-trigger convenzionali sono rappresentati da function pointer costanti:
-	battlecry
-	deathrattle
-
-
-Logica esecuzione script:
-# applicazione selector
-candidateTargets = []
-allChars = <friendly minions> + <enemy minions> + <friendly hero> + <enemy hero>
-
-for (c in allChars)
-	isCharOk = true
-	for s in filterSelectors
-		if (not s(c))
-			isCharOk = false
-			break
-
-	if isCharOk
-		candidateTargets.push(c)
-
-targets = finalSelector(candidateTargets)
-
-# invocazione action
-for (c in targets)
-	apply(action, c)
-
-
-
 
 
 ### v0.3
-- aggiornare README
-
 - meccaniche
 	- meccaniche non-script:
 		- taunt [Senjin Shieldmasta]
@@ -51,7 +11,7 @@ for (c in targets)
 		- charge [Stonetusk Boar]
 
 	- azioni engine + carta esempio:
-		v hit 	[Holy Smite]
+		v hit [Holy Smite]
 		- restore/give health [Healing Touch]
 		- take control [Mind Control]
 		- copy card [Mind Vision]
@@ -62,11 +22,14 @@ for (c in targets)
 		- summon given minion [Dragonling Mechanic]
 		- modifier to spell damage (player buff?)
 		- destroy minion
-		- trigger: whenever healed
-		- trigger: whenever takes damage [Gurubashi Berserker]
-		- trigger: summoning []
-		- trigger: battlecry
-		- trigger: deathrattle
+
+	- trigger:
+		- whenever healed
+		- whenever takes damage [Gurubashi Berserker]
+		- summoning []
+		v battlecry
+		v deathrattle
+		- next owner turn
 		- aura
 
 
@@ -81,6 +44,8 @@ for (c in targets)
 	- precondizioni per play carte
 	- buff stack
 	- one-shot effects vs buffs
+
+	- pulizia:
 
 	- gui: visualizzare buff attivi per minion
 	- gui: scelta target per carte che ne richiedono uno

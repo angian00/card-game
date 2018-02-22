@@ -12,12 +12,13 @@ Object.assign(global, require("gc-constants"));
 Object.assign(global, require("gc-util"));
 Object.assign(global, require("gc-entities"));
 Object.assign(global, require("gc-events"));
+Object.assign(global, require("gc-deck"));
 Object.assign(global, require("gc-engine"));
 
 
 app.get('/api/status', function (req, res) {
 	console.log("Got a GET request for /status");
-	//console.log(g);
+	//console.log(gameStatus);
 	return res.json(gameStatus.cloneForOutput());
 })
 

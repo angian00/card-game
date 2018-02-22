@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v 0.3
+Working card scripts for basic set.
+Types of cards supported: Minions, Spells.
+Scraped images.
+
+
 ## v 0.2
 Created GitHub project.
 Reviewed architecture: ported engine to node.js + web GUI, via synchronous REST commands/updates.
