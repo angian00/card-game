@@ -21,7 +21,7 @@ def main():
 	global root_dir
 
 	root_dir = get_script_path() + "/.."
-	#scrape_img_links()
+	scrape_img_links()
 	#parse_sample_file()
 	download_images()
 
@@ -41,21 +41,22 @@ def scrape_img_links():
 
 
 	for c in cards:
-		std_name = url_cleanup(c["name"])
+		url_filename = url_cleanup(c["name"])
+		local_filename = filename_cleanup(c["name"])
 		
 		#check if image has already been downloaded
-		if len([f for f in os.listdir(root_dir + "/" + image_dir) if f.startswith(std_name)]) > 0:
-			print(" -- {}: local image already present".format(std_name))
+		if len([f for f in os.listdir(root_dir + "/" + image_dir) if f.startswith(local_filename)]) > 0:
+			print(" -- {}: local image already present".format(local_filename))
 			continue
 
 
-		page_url = base_url + "/" + std_name
+		page_url = base_url + "/" + url_filename
 		#print("{} --> {}".format(c["name"], full_url))
 
 		r = requests.get(page_url)
 
 		if r.status_code >= 400:
-			print("!! KO {} {} --> {}".format(r.status_code, std_name, page_url))
+			print("!! KO {} {} --> {}".format(r.status_code, url_filename, page_url))
 			continue
 
 		#with open(page_filename, 'wb') as f:
@@ -63,17 +64,17 @@ def scrape_img_links():
 
 		img_link = parse_page(r.text)
 		if img_link is None:
-			print(" !! {}: image link not found in page".format(std_name) )
+			print(" !! {}: image link not found in page".format(local_filename) )
 		else:
-			img_links[std_name] = img_link
-			print(" -- {}: found image link".format(std_name) )
+			img_links[local_filename] = img_link
+			print(" -- {}: found image link".format(local_filename) )
 
 		c_count = c_count + 1
 
 
 	with open(root_dir + "/data/" + link_filename, "w") as f:
-		for std_name, img_link in img_links.items():
-			f.write("{}|{}\n".format(std_name, img_link))
+		for local_filename, img_link in img_links.items():
+			f.write("{}|{}\n".format(local_filename, img_link))
 
 
 def download_images():
@@ -87,13 +88,13 @@ def download_images():
 
 
 	for line in all_lines:
-		std_name, img_link = line.split("|")
+		local_filename, img_link = line.split("|")
 		img_link = img_link.strip()
 		#print(std_name, img_link)
 
 		ext = img_link.split("?")[-2].split(".")[-1]
 
-		image_path = root_dir + "/" + image_dir + "/" + std_name + "." + ext
+		image_path = root_dir + "/" + image_dir + "/" + local_filename + "." + ext
 		if os.path.isfile(image_path):
 			print("-- File exists {}".format(image_path))
 			continue
@@ -111,7 +112,7 @@ def download_images():
 		with open(image_path, 'wb') as fi:
 			fi.write(r.content)
 
-		print("-- OK {}".format(std_name, img_link))
+		print("-- OK {}".format(local_filename, img_link))
 
 
 def parse_sample_file():
@@ -134,6 +135,9 @@ def parse_page(body):
 
 def url_cleanup(str):
 	return str.replace(" ", "_")
+
+def filename_cleanup(str):
+	return url_cleanup(str).replace(":", "_")
 
 
 def get_script_path():

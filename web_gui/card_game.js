@@ -275,8 +275,5 @@ function clearSelected() {
 
 
 function cleanUrl(str) {
-	//return encodeURIComponent(str.replace(/\ /g, "_"));
-	console.log("Replaced spaces: " + str.replace(/\ /g, "_"));
-	console.log("encodeURI: " + encodeURI(str.replace(/\ /g, "_")));
-	return encodeURI(str.replace(/\ /g, "_")).replace(/'/g ,"%27");
+	return encodeURI(str.replace(/[\ |\:]/g, "_")).replace(/'/g ,"%27");
 }

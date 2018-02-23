@@ -41,6 +41,6 @@ do
 	if [ ! -f "$destDir/$destfile" ]
 	then
 		echo "Converting $srcfile to $destfile"
-		echo convert $f $destDir/$destfile
+		convert $f $destDir/$destfile
 	fi
 done
