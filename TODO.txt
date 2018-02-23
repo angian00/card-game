@@ -12,34 +12,35 @@
 
 	- azioni engine + carta esempio:
 		v hit [Holy Smite]
-		- restore/give health [Healing Touch]
-		- take control [Mind Control]
-		- copy card [Mind Vision]
+		v restore/give health [Healing Touch]
 		- verificare draw card [Power Word: Shield]
-		- discard card [Succubus]
-		- temporary/permanent stat modifiers [Savage Roar, Wild Growth]
+
+		- destroy minion
 		- transform minion in other given minion []
 		- summon given minion [Dragonling Mechanic]
+		- copy card [Mind Vision]
+		- discard card [Succubus]
+		- temporary/permanent stat modifiers [Savage Roar, Wild Growth]
 		- modifier to spell damage (player buff?)
-		- destroy minion
+		- take control [Mind Control]
 
 	- trigger:
-		- whenever healed
-		- whenever takes damage [Gurubashi Berserker]
-		- summoning []
 		v battlecry
 		v deathrattle
+		v summoning []
+		v whenever takes damage [Gurubashi Berserker]
+		- whenever healed
 		- next owner turn
-		- aura
+		- <aura>
 
 
 	- selectors:
-		- damaged/undamaged
-		- random
-		- enemy/friendly
-		- minion/hero/character
-		- other minions
-		- race
+		v damaged/undamaged
+		v random
+		v enemy/friendly
+		v minion/hero/character
+		v other minions
+		v race
 
 	- precondizioni per play carte
 	- buff stack
@@ -51,18 +52,12 @@
 	- gui: scelta target per carte che ne richiedono uno
 
 - GUI
-	- cleanup testo carta:
-		[x], $, #, \n
-	- togliere stats per Spells
 	- tooltip
 
 	- visualizzazione righe distinte array messaggi
 	- occupazione 100% schermo
 	- rotate/scale carte in mano
 	- visualizzare razza
-
-
-? significato $ e # prima dei numeri in card.text
 
 
 - mulligan
