@@ -91,7 +91,7 @@ function populateCards(containerId, cards, playerIndex) {
 
 		if (c.type == "MINION") {
 			cardDiv.append("<div class='gamecard-stat-attack'><i class='fa fa-gavel'></i>" + c.attack 
-				+ (c.hasAttacked ? "*" : "") + "</div>");
+				+ (c.numRemAttacks == 0 ? "*" : "") + "</div>");
 			
 			var healthText = "";
 			if (c.zone == "BOARD") {

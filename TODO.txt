@@ -5,18 +5,18 @@
 ### v0.3
 - meccaniche
 	- meccaniche non-script:
-		- taunt [Senjin Shieldmasta]
-		- frozen [Frost Nova]
-		- windfury [Windfury]
-		- charge [Stonetusk Boar]
+		T taunt [Senjin Shieldmasta]
+		T frozen [Frost Nova]
+		T windfury [Windfury]
+		T charge [Stonetusk Boar]
 
 	- azioni engine + carta esempio:
 		v hit [Holy Smite]
-		v restore/give health [Healing Touch]
-		- verificare draw card [Power Word: Shield]
+		T restore/give health [Healing Touch]
+		T draw card [Power Word: Shield]
 
 		- destroy minion
-		- transform minion in other given minion []
+		- transform minion in other given minion
 		- summon given minion [Dragonling Mechanic]
 		- copy card [Mind Vision]
 		- discard card [Succubus]
@@ -25,24 +25,29 @@
 		- take control [Mind Control]
 
 	- trigger:
-		v battlecry
-		v deathrattle
-		v summoning []
-		v whenever takes damage [Gurubashi Berserker]
-		- whenever healed
+		T battlecry
+		T deathrattle
+		T summoning
+		T whenever takes damage [Gurubashi Berserker]
+		T whenever healed
 		- next owner turn
 		- <aura>
 
 
 	- selectors:
-		v damaged/undamaged
-		v random
-		v enemy/friendly
-		v minion/hero/character
-		v other minions
-		v race
+		t damaged/undamaged
+		t random
+		t enemy/friendly
+		t minion/hero/character
+		t other minions
+		t race
 
 	- precondizioni per play carte
+		REQ_TARGET_TO_PLAY
+			vs.
+		REQ_TARGET_IF_AVAILABLE
+
+
 	- buff stack
 	- one-shot effects vs buffs
 
